@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import ro.pub.cs.systems.eim.lab02.activitylifecyclemonitor.R;
@@ -63,14 +64,128 @@ public class LifecycleMonitorActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lifecycle_monitor);
 		
+
+		
 		Button okButton = (Button)findViewById(R.id.ok_button);
 		okButton.setOnClickListener(buttonClickListener);
 		Button cancelButton = (Button)findViewById(R.id.cancel_button);
 		cancelButton.setOnClickListener(buttonClickListener);
 		
 		Log.d(Constants.TAG, "onCreate() method was invoked");
-	}
+		if( savedInstanceState == null )
+			Log.d(Constants.TAG, "First time");
+		else {
+			Log.d(Constants.TAG, "not my first time");
+			
+			
+			String userName = "",password = "";
+			if (savedInstanceState.containsKey(Constants.USERNAME_EDIT_TEXT)){
+				userName = savedInstanceState.get(Constants.USERNAME_EDIT_TEXT).toString();
+				EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+				usernameEditText.setText(userName+ "changed");
+			}
+			if (savedInstanceState.containsKey(Constants.PASSWORD_EDIT_TEXT)) {
+				password = savedInstanceState.get(Constants.PASSWORD_EDIT_TEXT).toString();
+				EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
+				passwordEditText.setText(password);
+			}
+			
+			if (savedInstanceState.containsKey(Constants.REMEMBER_ME_CHECKBOX)){
+				Boolean checked = savedInstanceState.getBoolean(Constants.REMEMBER_ME_CHECKBOX);
+				CheckBox checkBox = (CheckBox)findViewById(R.id.remember_me_checkbox);
+				checkBox.setActivated(checked);
+			}
+			
+			
+			
+			
+			
+			
+			}
 
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		Log.d(Constants.TAG, "onRestoreInstanceState() method was invoked");
+		if (savedInstanceState.containsKey(Constants.USERNAME_EDIT_TEXT)) {
+			EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+			usernameEditText.setText(savedInstanceState.getString(Constants.USERNAME_EDIT_TEXT));
+		}
+		if (savedInstanceState.containsKey(Constants.PASSWORD_EDIT_TEXT)) {
+			EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
+			passwordEditText.setText(savedInstanceState.getString(Constants.PASSWORD_EDIT_TEXT));
+		}
+		if (savedInstanceState.containsKey(Constants.REMEMBER_ME_CHECKBOX)) {
+			CheckBox rememberMeCheckBox = (CheckBox)findViewById(R.id.remember_me_checkbox);
+			rememberMeCheckBox.setChecked(savedInstanceState.getBoolean(Constants.REMEMBER_ME_CHECKBOX));
+		}
+	}
+	
+	
+	@Override
+	protected void onSaveInstanceState(Bundle savedInstanceState) {
+	  super.onSaveInstanceState(savedInstanceState);
+	  EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+	  EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
+	  CheckBox checkBox = (CheckBox)findViewById(R.id.remember_me_checkbox);
+	  Log.d(Constants.TAG, "onSaveInstanceState() method was invoked");
+	  if(checkBox.isChecked() == true )
+	  {
+		  Log.d(Constants.TAG, "onSaveInstanceState() SALV CEVA");
+		  savedInstanceState.putString(Constants.USERNAME_EDIT_TEXT, usernameEditText.getText().toString());
+
+		  savedInstanceState.putString(Constants.USERNAME_EDIT_TEXT, usernameEditText.getText().toString());
+		  
+		  savedInstanceState.putBoolean(Constants.REMEMBER_ME_CHECKBOX, true);
+	  }
+	  
+	  	}
+
+
+	 @Override
+	  protected void onStart() {
+	    super.onStart();
+		Log.d(Constants.TAG, "onStart() method was invoked");
+	    // ...
+	  }
+	 
+	  @Override
+	  protected void onResume() {
+	    super.onResume();
+	    Log.d(Constants.TAG, "onResume() method was invoked");
+	    // ...
+	  }
+	 
+	  @Override
+	  protected void onPause() {
+	    super.onPause();
+	    Log.d(Constants.TAG, "onPause() method was invoked");
+	    // ...
+	  }
+	 
+	  @Override
+	  protected void onStop() {
+	    super.onStop();
+	    Log.d(Constants.TAG, "onStop() method was invoked");
+	    // ...
+	  }
+	 
+	  @Override
+	  protected void onDestroy() {
+	    super.onDestroy();
+	    Log.d(Constants.TAG, "onDestroy() method was invoked");
+	    // ...
+	  }
+	 
+	  @Override
+	  protected void onRestart() {
+	    super.onRestart();
+	    Log.d(Constants.TAG, "onRestart() method was invoked");
+	    // ...
+	  }
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
