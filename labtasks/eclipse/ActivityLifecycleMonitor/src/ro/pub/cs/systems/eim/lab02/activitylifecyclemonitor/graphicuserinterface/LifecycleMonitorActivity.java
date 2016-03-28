@@ -63,7 +63,10 @@ public class LifecycleMonitorActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lifecycle_monitor);
-		
+		EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+		Log.d(Constants.TAG, "este : " + usernameEditText.isSaveEnabled()); 
+		usernameEditText.setSaveEnabled(false);
+		Log.d(Constants.TAG, "este : " + usernameEditText.isSaveEnabled()); 
 
 		
 		Button okButton = (Button)findViewById(R.id.ok_button);
@@ -71,13 +74,17 @@ public class LifecycleMonitorActivity extends Activity {
 		Button cancelButton = (Button)findViewById(R.id.cancel_button);
 		cancelButton.setOnClickListener(buttonClickListener);
 		
+		
+		
+		
+		
 		Log.d(Constants.TAG, "onCreate() method was invoked");
 		if( savedInstanceState == null )
 			Log.d(Constants.TAG, "First time");
 		else {
 			Log.d(Constants.TAG, "not my first time");
 			
-			
+			/*
 			String userName = "",password = "";
 			if (savedInstanceState.containsKey(Constants.USERNAME_EDIT_TEXT)){
 				userName = savedInstanceState.get(Constants.USERNAME_EDIT_TEXT).toString();
@@ -96,7 +103,7 @@ public class LifecycleMonitorActivity extends Activity {
 				checkBox.setActivated(checked);
 			}
 			
-			
+			*/
 			
 			
 			
